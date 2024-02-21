@@ -72,15 +72,20 @@
     <div class="chat-container">
         <div class="message-box"></div>
         <div class="input-container">
-            <input type="text" class="input-field" id="userInput" placeholder="Ask me anything">
-            <button class="send-button" onclick="sendMessage()">Send</button>
+            <input type="text" class="input-field" id="apiKeyInput" placeholder="Enter your API key">
+            <button class="send-button" onclick="submitApiKey()">Submit</button>
         </div>
     </div>
     <script>
-        function sendMessage() {
-            var userInput = document.getElementById("userInput").value;
-            displayUserMessage(userInput);
-            getOpenAIResponse(userInput);
+        function submitApiKey() {
+            var apiKey = document.getElementById("apiKeyInput").value.trim();
+            if (!apiKey) {
+                alert("Please enter your API key!");
+                return;
+            }
+
+            // Make API request with the entered API key
+            getOpenAIResponse(apiKey);
         }
 
         function displayUserMessage(message) {
@@ -101,7 +106,8 @@
             messageBox.scrollTop = messageBox.scrollHeight;
         }
 
-        function getOpenAIResponse(userInput) {
+        function getOpenAIResponse(apiKey) {
+            var userInput = "Hello, Bard!"; // Example user input
             var endpoint = 'https://api.openai.com/v1/completions'; // Example endpoint for GPT model
 
             var requestBody = {
@@ -114,7 +120,7 @@
                 body: JSON.stringify(requestBody),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer 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' 
+                    'Authorization': 'Bearer ' + apiKey
                 }
             })
             .then(response => response.json())
@@ -127,6 +133,6 @@
             });
         }
     </script>
-    Version_1.1
+    Version_1.2
 </body>
 </html>
