@@ -77,51 +77,55 @@
         </div>
     </div>
     <script>
-        // Function to send a message
         function sendMessage() {
-            // Get user input
             var userInput = document.getElementById("userInput").value;
-
-            // Display user message
             displayUserMessage(userInput);
-
-            // Call the Google BERT API to get the response
-            getBardResponse(userInput);
+            getOpenAIResponse(userInput);
         }
 
-        // Function to display user message
         function displayUserMessage(message) {
             var messageBox = document.querySelector(".message-box");
             var userMessageElement = document.createElement("div");
             userMessageElement.className = "message user-message";
             userMessageElement.innerText = message;
             messageBox.appendChild(userMessageElement);
-            // Scroll to bottom
             messageBox.scrollTop = messageBox.scrollHeight;
         }
 
-        // Function to display Bard's message
-        function displayBardMessage(message) {
+        function displayOpenAIMessage(message) {
             var messageBox = document.querySelector(".message-box");
-            var bardMessageElement = document.createElement("div");
-            bardMessageElement.className = "message bard-message";
-            bardMessageElement.innerText = message;
-            messageBox.appendChild(bardMessageElement);
-            // Scroll to bottom
+            var openAIMessageElement = document.createElement("div");
+            openAIMessageElement.className = "message openai-message";
+            openAIMessageElement.innerText = message;
+            messageBox.appendChild(openAIMessageElement);
             messageBox.scrollTop = messageBox.scrollHeight;
         }
 
-        // Function to get response from Google BERT API
-        function getBardResponse(userInput) {
-            // Placeholder for API call
-            // You should replace this with your actual API call to the Google BERT API
-            // For demonstration purpose, let's assume we're just echoing the user input
-            var bardResponse = "You said: " + userInput;
+        function getOpenAIResponse(userInput) {
+            var endpoint = 'https://api.openai.com/v1/completions'; // Example endpoint for GPT model
 
-            // Display Bard's message
-            displayBardMessage(bardResponse);
+            var requestBody = {
+                prompt: userInput,
+                max_tokens: 50 // Example parameter, adjust as needed
+            };
+
+            fetch(endpoint, {
+                method: 'POST',
+                body: JSON.stringify(requestBody),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer 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' // Replace with your actual API key
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                var openAIResponse = data.choices[0].text.trim(); // Extracting response from the JSON
+                displayOpenAIMessage(openAIResponse);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
-    v_0.1
 </body>
 </html>
