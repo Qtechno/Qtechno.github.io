@@ -76,5 +76,52 @@
             <button class="send-button" onclick="sendMessage()">Send</button>
         </div>
     </div>
-    <script src="bard.js"></script> </body>
+    <script>
+        // Function to send a message
+        function sendMessage() {
+            // Get user input
+            var userInput = document.getElementById("userInput").value;
+
+            // Display user message
+            displayUserMessage(userInput);
+
+            // Call the Google BERT API to get the response
+            getBardResponse(userInput);
+        }
+
+        // Function to display user message
+        function displayUserMessage(message) {
+            var messageBox = document.querySelector(".message-box");
+            var userMessageElement = document.createElement("div");
+            userMessageElement.className = "message user-message";
+            userMessageElement.innerText = message;
+            messageBox.appendChild(userMessageElement);
+            // Scroll to bottom
+            messageBox.scrollTop = messageBox.scrollHeight;
+        }
+
+        // Function to display Bard's message
+        function displayBardMessage(message) {
+            var messageBox = document.querySelector(".message-box");
+            var bardMessageElement = document.createElement("div");
+            bardMessageElement.className = "message bard-message";
+            bardMessageElement.innerText = message;
+            messageBox.appendChild(bardMessageElement);
+            // Scroll to bottom
+            messageBox.scrollTop = messageBox.scrollHeight;
+        }
+
+        // Function to get response from Google BERT API
+        function getBardResponse(userInput) {
+            // Placeholder for API call
+            // You should replace this with your actual API call to the Google BERT API
+            // For demonstration purpose, let's assume we're just echoing the user input
+            var bardResponse = "You said: " + userInput;
+
+            // Display Bard's message
+            displayBardMessage(bardResponse);
+        }
+    </script>
+    v_0.1
+</body>
 </html>
