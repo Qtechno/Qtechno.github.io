@@ -74,17 +74,13 @@
 <body>
     <div class="chat-container">
         <div class="message-box"></div>
-        <div class="api-key-input">
-            <input type="text" class="input-field" id="apiKeyInput" placeholder="Enter your API key">
-            <button class="send-button" onclick="submitApiKey()">Submit Key</button>
-        </div>
         <div class="input-container">
             <input type="text" class="input-field" id="userInput" placeholder="Ask me anything">
             <button class="send-button" onclick="sendMessage()">Send</button>
         </div>
     </div>
     <script>
-        let apiKey = "";
+        let apiKey = ""; // Global variable to store API key
 
         function submitApiKey() {
             apiKey = document.getElementById("apiKeyInput").value.trim();
@@ -121,12 +117,21 @@
         }
 
         function getOpenAIResponse(userInput) {
-            var endpoint = 'https://api.openai.com/v1/completions'; // Example endpoint for GPT model
+            var endpoint = 'https://api.openai.com/v1/chat/completions';
 
             var requestBody = {
-                prompt: userInput,
-                max_tokens: 50, // Example parameter, adjust as needed
-                model: "text-davinci-003" // Specify the model parameter
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "user",
+                        content: userInput
+                    }
+                ],
+                temperature: 1,
+                max_tokens: 256,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0
             };
 
             fetch(endpoint, {
@@ -139,7 +144,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                var openAIResponse = data.choices[0].text.trim(); // Extracting response from the JSON
+                var openAIResponse = data.choices[0].message.content.trim(); // Extracting response from the JSON
                 displayOpenAIMessage(openAIResponse);
             })
             .catch(error => {
@@ -147,6 +152,5 @@
             });
         }
     </script>
-    Version_4.0
 </body>
 </html>
