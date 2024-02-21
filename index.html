@@ -48,7 +48,6 @@
 
         .input-container {
             display: flex;
-            flex-wrap: wrap; /* Add wrap to wrap the elements */
             margin-top: 10px;
         }
 
@@ -57,7 +56,6 @@
             padding: 5px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            margin-bottom: 10px; /* Add margin-bottom */
         }
 
         .send-button {
@@ -67,25 +65,41 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: 10px; /* Add margin-left */
+        }
+        .api-key-input {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="message-box"></div>
-        <div class="input-container">
+        <div class="api-key-input">
             <input type="text" class="input-field" id="apiKeyInput" placeholder="Enter your API key">
+            <button class="send-button" onclick="submitApiKey()">Submit Key</button>
+        </div>
+        <div class="input-container">
             <input type="text" class="input-field" id="userInput" placeholder="Ask me anything">
             <button class="send-button" onclick="sendMessage()">Send</button>
         </div>
     </div>
     <script>
+        let apiKey = "";
+
+        function submitApiKey() {
+            apiKey = document.getElementById("apiKeyInput").value.trim();
+            if (!apiKey) {
+                alert("Please enter your API key!");
+                return;
+            }
+
+            alert("API Key Submitted Successfully!");
+        }
+
         function sendMessage() {
             var userInput = document.getElementById("userInput").value;
-            var apiKey = document.getElementById("apiKeyInput").value; // Get API key
             displayUserMessage(userInput);
-            getOpenAIResponse(userInput, apiKey); // Pass API key to getOpenAIResponse function
+            getOpenAIResponse(userInput);
         }
 
         function displayUserMessage(message) {
@@ -106,12 +120,13 @@
             messageBox.scrollTop = messageBox.scrollHeight;
         }
 
-        function getOpenAIResponse(userInput, apiKey) { // Accept apiKey as a parameter
+        function getOpenAIResponse(userInput) {
             var endpoint = 'https://api.openai.com/v1/completions'; // Example endpoint for GPT model
 
             var requestBody = {
                 prompt: userInput,
-                max_tokens: 50 // Example parameter, adjust as needed
+                max_tokens: 50, // Example parameter, adjust as needed
+                model: "text-davinci-003" // Specify the model parameter
             };
 
             fetch(endpoint, {
@@ -119,7 +134,7 @@
                 body: JSON.stringify(requestBody),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + apiKey // Use the apiKey parameter
+                    'Authorization': 'Bearer ' + apiKey
                 }
             })
             .then(response => response.json())
@@ -132,6 +147,6 @@
             });
         }
     </script>
-    Version_2.0
+    Version_3.0
 </body>
 </html>
