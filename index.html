@@ -71,7 +71,12 @@
         }
     </style>
 </head>
- <div class="chat-container">
+<body>
+    <div class="api-key-container">
+        <input type="text" class="api-key-input" id="apiKeyInput" placeholder="Enter your API key">
+        <button class="submit-api-key-button" onclick="submitApiKey()">Submit</button>
+    </div>
+    <div class="chat-container">
         <div class="message-box"></div>
         <div class="input-container">
             <input type="text" class="input-field" id="userInput" placeholder="Ask me anything">
@@ -80,7 +85,7 @@
     </div>
     <script>
         let apiKey = ""; // Global variable to store API key
-        let conversationHistory = []; // Array to store conversation history
+        let conversationState = {}; // Object to store conversation state
 
         function submitApiKey() {
             apiKey = document.getElementById("apiKeyInput").value.trim();
@@ -95,7 +100,25 @@
         function sendMessage() {
             var userInput = document.getElementById("userInput").value;
             displayUserMessage(userInput);
-            getOpenAIResponse(userInput);
+
+            // Construct request with current conversation state
+            var requestBody = {
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "user",
+                        content: userInput
+                    }
+                ],
+                temperature: 1,
+                max_tokens: 256,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+                context: conversationState // Include conversation state in the request
+            };
+
+            getOpenAIResponse(requestBody);
         }
 
         function displayUserMessage(message) {
@@ -107,33 +130,17 @@
             messageBox.scrollTop = messageBox.scrollHeight;
         }
 
-        function displayOpenAIMessage(message) {
+        function displayBotMessage(message) {
             var messageBox = document.querySelector(".message-box");
-            var openAIMessageElement = document.createElement("div");
-            openAIMessageElement.className = "message openai-message";
-            openAIMessageElement.innerText = message;
-            messageBox.appendChild(openAIMessageElement);
+            var botMessageElement = document.createElement("div");
+            botMessageElement.className = "message bot-message";
+            botMessageElement.innerText = message;
+            messageBox.appendChild(botMessageElement);
             messageBox.scrollTop = messageBox.scrollHeight;
         }
 
-        function getOpenAIResponse(userInput) {
+        function getOpenAIResponse(requestBody) {
             var endpoint = 'https://api.openai.com/v1/chat/completions';
-
-            // Construct request body with conversation history
-            var requestBody = {
-                model: "gpt-3.5-turbo",
-                messages: conversationHistory.concat([
-                    {
-                        role: "user",
-                        content: userInput
-                    }
-                ]),
-                temperature: 1,
-                max_tokens: 256,
-                top_p: 1,
-                frequency_penalty: 0,
-                presence_penalty: 0
-            };
 
             fetch(endpoint, {
                 method: 'POST',
@@ -145,10 +152,9 @@
             })
             .then(response => response.json())
             .then(data => {
-                var openAIResponse = data.choices[0].message.content.trim(); // Extracting response from the JSON
-                displayOpenAIMessage(openAIResponse);
-                // Update conversation history with current user message and bot response
-                conversationHistory = requestBody.messages.concat([{ role: "assistant", content: openAIResponse }]);
+                var botResponse = data.choices[0].message.content.trim(); // Extracting response from the JSON
+                displayBotMessage(botResponse);
+                conversationState = data.context; // Update conversation state with bot's response
             })
             .catch(error => {
                 console.error('Error:', error);
