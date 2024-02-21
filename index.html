@@ -71,12 +71,7 @@
         }
     </style>
 </head>
-<body>
-    <div class="chat-container">
-        <div class="api-key-input">
-            <input type="text" class="input-field" id="apiKeyInput" placeholder="Enter your API key">
-            <button class="send-button" onclick="submitApiKey()">Submit Key</button>
-        </div>
+ <div class="chat-container">
         <div class="message-box"></div>
         <div class="input-container">
             <input type="text" class="input-field" id="userInput" placeholder="Ask me anything">
@@ -85,6 +80,7 @@
     </div>
     <script>
         let apiKey = ""; // Global variable to store API key
+        let conversationHistory = []; // Array to store conversation history
 
         function submitApiKey() {
             apiKey = document.getElementById("apiKeyInput").value.trim();
@@ -123,14 +119,15 @@
         function getOpenAIResponse(userInput) {
             var endpoint = 'https://api.openai.com/v1/chat/completions';
 
+            // Construct request body with conversation history
             var requestBody = {
                 model: "gpt-3.5-turbo",
-                messages: [
+                messages: conversationHistory.concat([
                     {
                         role: "user",
                         content: userInput
                     }
-                ],
+                ]),
                 temperature: 1,
                 max_tokens: 256,
                 top_p: 1,
@@ -150,6 +147,8 @@
             .then(data => {
                 var openAIResponse = data.choices[0].message.content.trim(); // Extracting response from the JSON
                 displayOpenAIMessage(openAIResponse);
+                // Update conversation history with current user message and bot response
+                conversationHistory = requestBody.messages.concat([{ role: "assistant", content: openAIResponse }]);
             })
             .catch(error => {
                 console.error('Error:', error);
