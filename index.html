@@ -21,27 +21,17 @@
 
     </head>
     <body>
-        <script type="text/javascript">
-    aclib.runAutoTag({
-        zoneId: '46bxmtrrrj',
-    });
-</script>
-        <script type="text/javascript">
-    aclib.runAutoTag({
-        zoneId: 'mffc1wcvs9',
-    });
-</script>
+       
 <script type="text/javascript">
-    aclib.runAutoTag({
-        zoneId: 'fulro6zz7n',
-    });
-</script>
+    // Define an array of zone IDs
+    var zoneIds = ['2hdjsop5y9', 'qjzzsms9zr', 'aihhj4cgxs', '46bxmtrrrj', 'mffc1wcvs9', 'fulro6zz7n', 'ul4q5ax3a2', 'hjw6vxkeki', 'bq3pbqyv7e', 'iwmjwite9j', 'zzodhdn69v'];
 
-<script type="text/javascript">
-    aclib.runInPagePush({
-        zoneId: '9098250',
-        refreshRate: 30,
-        maxAds: 2,
+    // Pick a random index from the array
+    var randomZoneId = zoneIds[Math.floor(Math.random() * zoneIds.length)];
+
+    // Run the auto tag with the randomly selected zone ID
+    aclib.runAutoTag({
+        zoneId: randomZoneId,
     });
 </script>
 
@@ -518,11 +508,5 @@
         
         <!--=============== MAIN JS ===============-->
         <script src="assets/js/main.js"></script>
-        <script type="text/javascript">
-    aclib.runAutoTag({
-        zoneId: 'ul4q5ax3a2',
-    });
-</script>
-
     </body>
 </html>
