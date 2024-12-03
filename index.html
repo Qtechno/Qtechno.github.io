@@ -38,10 +38,44 @@
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
-                <a href="#" class="nav__logo">
-                    <img src="assets/img/logo.png" alt="" class="nav__logo-img">
-                    Qtechno
-                </a>
+          <a href="#" class="nav__logo" onclick="openRandomLink(event)">
+    <img src="assets/img/logo.png" alt="" class="nav__logo-img">
+    Qtechno
+</a>
+
+<p id="linkIndex"></p> <!-- This paragraph will display the index of the opened link -->
+
+<script>
+    function openRandomLink(event) {
+        event.preventDefault(); // Prevent the default action of the link
+        const links = [
+            "https://zireemilsoude.net/4/8598667",
+            "https://zireemilsoude.net/4/8598666",
+            "https://zireemilsoude.net/4/8598655",
+            "https://coucekouvaiphoo.net/4/8602252",
+            "https://noapsufeph.net/4/8602250",
+            "https://moohoostoamie.net/4/8602246",
+            "https://pturdaumpustool.net/4/8602245",
+            "https://zireemilsoude.net/4/8598666",
+            "https://zireemilsoude.net/4/8598655",
+            "https://coucekouvaiphoo.net/4/8602252",
+            "https://noapsufeph.net/4/8602250",
+            "https://moohoostoamie.net/4/8602246",
+            "https://pturdaumpustool.net/4/8602245"
+        ];
+
+        // Select a random index from the links array
+        const randomIndex = Math.floor(Math.random() * links.length);
+        const randomLink = links[randomIndex];
+        
+        // Display the index of the opened link
+        document.getElementById('linkIndex').textContent = `Link at index ${randomIndex} opened: ${randomLink}`;
+
+        // Open the random link
+        window.location.href = randomLink;
+    }
+</script>
+
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
