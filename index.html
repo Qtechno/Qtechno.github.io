@@ -21,20 +21,37 @@
 
     </head>
     <body>
-       
-<script type="text/javascript">
-    // Define an array of zone IDs
-    var zoneIds = ['2kkupkafj6', 'qytr2sgxdy', 'wqsowoqodz', 'kfqzvxphir', 'k6tgf3xsox', 'yvqqyys2aa', 'j99uqgsefg'];
+          <script type="text/javascript">
+    var zoneIds = [
+              '7vkq9zxom8',
+              'suveyoko5c',
+              'ffvh4h7qge',
+              'qndymtcj2a',
+              'nmxzpj2niu',
+              'pkbxlk0one',
+              'rsiv7zgbqe',
+              'co8lacjdxz',
+              'xmjfposvyo',
+              'u00lk3odfh',
+              '7baab8kuuh'
+    ];
 
-    // Pick a random index from the array
-    var randomZoneId = zoneIds[Math.floor(Math.random() * zoneIds.length)];
+    // Select a random index
+    var randomIndex = Math.floor(Math.random() * zoneIds.length);
 
-    // Run the auto tag with the randomly selected zone ID
+    // Get the randomly selected zoneId
+    var selectedZoneId = zoneIds[randomIndex];
+
+    // Run the AutoTag with the selected random zoneId
     aclib.runAutoTag({
-        zoneId: randomZoneId,
+        zoneId: selectedZoneId,
     });
-</script>
 
+    // Display the loaded zoneId in the <p> tag
+    var adInfoElement = document.createElement('p');
+    adInfoElement.textContent = 'Loaded Ad with Zone ID: ' + selectedZoneId;
+    document.body.appendChild(adInfoElement);
+</script>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
@@ -42,73 +59,31 @@
     <img src="assets/img/logo.png" alt="" class="nav__logo-img">
     Qtechno
 </a>
-
 <p id="linkIndex"></p> <!-- This paragraph will display the index of the opened link -->
-
-<script>
-    function openRandomLink(event) {
-        event.preventDefault(); // Prevent the default action of the link
-        const links = [
-            "https://zireemilsoude.net/4/8598667",
-            "https://zireemilsoude.net/4/8598666",
-            "https://zireemilsoude.net/4/8598655",
-            "https://coucekouvaiphoo.net/4/8602252",
-            "https://noapsufeph.net/4/8602250",
-            "https://moohoostoamie.net/4/8602246",
-            "https://pturdaumpustool.net/4/8602245",
-            "https://zireemilsoude.net/4/8598666",
-            "https://zireemilsoude.net/4/8598655",
-            "https://coucekouvaiphoo.net/4/8602252",
-            "https://noapsufeph.net/4/8602250",
-            "https://moohoostoamie.net/4/8602246",
-            "https://pturdaumpustool.net/4/8602245"
-        ];
-
-        // Select a random index from the links array
-        const randomIndex = Math.floor(Math.random() * links.length);
-        const randomLink = links[randomIndex];
-        
-        // Display the index of the opened link
-        document.getElementById('linkIndex').textContent = `Link at index ${randomIndex} opened: ${randomLink}`;
-
-        // Open the random link
-        window.location.href = randomLink;
-    }
-</script>
-
-
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
                             <a href="#home" class="nav__link active-link">Home</a>
                         </li>
-
                         <li class="nav__item">
                             <a href="#about" class="nav__link">About</a>
                         </li>
-
                         <li class="nav__item">
                             <a href="#trick" class="nav__link">Candy</a>
                         </li>
-
                         <li class="nav__item">
                             <a href="#new" class="nav__link">New</a>
                         </li>
-
                         <a href="#" class="button button--ghost">Support</a>
                     </ul>
-
                     <div class="nav__close" id="nav-close">
                         <i class='bx bx-x'></i>
                     </div>
-
                     <img src="assets/img/nav-img.png" alt="" class="nav__img">
                 </div>
-
                 <div class="nav__toggle" id="nav-toggle">
                     <i class='bx bx-grid-alt'></i>
                 </div>
-
             </nav>
         </header>
 
@@ -129,14 +104,12 @@
                                         <span class="home__details-subtitle">The Living Pumpkin</span>
                                     </div>
                                 </div>
-    
                                 <div class="home__data">
                                     <h3 class="home__subtitle">#1 Top Scariest Ghost</h3>
                                     <h1 class="home__title">UOOOO <br> TRICK OR <br> TREAT!!</h1>
                                     <p class="home__description">Hi, I'm Reiza, people call me "El Labu". I am currently trying to learn 
                                         something new, building my own bike with parts made only in Malaysia.
                                     </p>
-
                                     <div class="home__buttons">
                                         <a href="#" class="button">Book Now</a>
                                         <a href="#" class="button--link button--flex">Track Record <i class='bx bx-right-arrow-alt button__icon'></i></a>
@@ -144,7 +117,6 @@
                                 </div>
                             </div>
                         </section>
-
                         <!-- HOME SLIDER 2 -->
                         <section class="swiper-slide">
                             <div class="home__content grid">
@@ -164,7 +136,6 @@
                                     <p class="home__description">Adino steals cotton candy from his brother and eats them all in one bite, 
                                         a hungry beast. Grahami can no longer contain his anger towards Adino.
                                     </p>
-
                                     <div class="home__buttons">
                                         <a href="#" class="button">Book Now</a>
                                         <a href="#" class="button--link button--flex">Track Record <i class='bx bx-right-arrow-alt button__icon'></i></a>
@@ -172,7 +143,6 @@
                                 </div>
                             </div>
                         </section>
-
                         <!-- HOME SLIDER 3 -->
                         <section class="swiper-slide">
                             <div class="home__content grid">
@@ -524,7 +494,6 @@
                 </div>
 
                 <span class="footer__copy">&#169; Qtechno All rigths reserved</span>
-
                 <img src="assets/img/footer1-img.png" alt="" class="footer__img-one">
                 <img src="assets/img/footer2-img.png" alt="" class="footer__img-two">
             </footer>
